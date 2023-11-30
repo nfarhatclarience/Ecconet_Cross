@@ -13,7 +13,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Create the udev rule
-echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="2d03", ATTRS{idProduct}=="0001", SYMLINK+="sib_c3_pro_usb"' > $RULE_FILE
+echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="2d03", ATTRS{idProduct}=="0001", SYMLINK+="sib_c3_pro_usb"' > $SIB_CODE3_RULE_FILE
 
 # Reload udev rules
 udevadm control --reload-rules

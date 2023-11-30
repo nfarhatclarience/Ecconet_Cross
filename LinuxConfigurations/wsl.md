@@ -1,4 +1,4 @@
-## wsl 
+### wsl 
 n this part 2 we are going to let WSL ubuntu recognize the microntroller
 First you need to install usbpipd
 got their website and follow instructions
@@ -17,15 +17,15 @@ sudo apt upgrade
 run alternatives command again
 sudo update-alternatives --install /usr/local/bin/usbip usbip ls /usr/lib/linux-tools/*/usbip | tail -n1 20
 
-## close wsl window
+### close wsl window
 usbipd wsl list
 #
 
-#attach 2-2    2d03:0001  C3 Pro USB Interface                                          Not attached
+### attach 2-2    2d03:0001  C3 Pro USB Interface                                          Not attached
 usbipd wsl attach --busid 2-2
 
 go back to ubuntu and run lsusb , you should see it
 lssub
 
 
-## additional Resources
+#### additional Resources
