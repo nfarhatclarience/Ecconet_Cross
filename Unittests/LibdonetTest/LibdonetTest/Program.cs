@@ -26,7 +26,6 @@ namespace ECCONetLibDemo
             Program program = new Program();
             try
             {
-                program.Run();
                 program.Connect();
                 program.StartReadingCanFrames();
 
@@ -46,47 +45,47 @@ namespace ECCONetLibDemo
             }
         }
 
-        public void Run()
+        public void Connect()
         {
             Console.WriteLine("Enumerating USB devices...");
             bool deviceFound = false;
 
             foreach (UsbRegistry usbRegistry in UsbDevice.AllDevices)
             {
-                Console.WriteLine($"Code3 SIB Device: VID={usbRegistry.Vid:X4}, PID={usbRegistry.Pid:X4}");
+                Console.WriteLine($"USB  Device: VID={usbRegistry.Vid:X4}, PID={usbRegistry.Pid:X4}");
 
                 if (usbRegistry.Vid == VendorID && usbRegistry.Pid == ProductID)
                 {
                     deviceFound = true;
-                    Console.WriteLine("Code3  USB Device Found\n");
-                    break; // Exit the loop once the device is found
+                    usbRegistry.Open(out usbCanDevice);
+                    bool openResult = usbRegistry.Open(out usbCanDevice);
+                    Console.WriteLine($"Open result: {openResult}");
+                    Console.WriteLine($"usbCanDevice is null: {usbCanDevice == null}");
+                    _isConnectedAndReady = true;
+                    if(usbCanDevice != null)
+                        reader = usbCanDevice.OpenEndpointReader(ReadEndpointID.Ep01);
+                    if (usbCanDevice == null)
+                    {
+                        Console.WriteLine("Failed to open Code 3 SIB device.");
+                        
+                    }   
+
+                    break;
+
+                    
+                   
                 }
-            }
-
-            if (!deviceFound)
-            {
-                throw new Exception("Code3 USB Device not found");
-            }
-        }
-
-        public int Connect()
-        {
-            UsbDeviceFinder finder = new UsbDeviceFinder(VendorID, ProductID);
-            usbCanDevice = UsbDevice.OpenUsbDevice(finder);
             
-
-            if (usbCanDevice == null)
-            {
-                Console.WriteLine("Failed to open Code 3 SIB device.");
-                return -1;
             }
+            if (!deviceFound)
+            {  
+                
+            }
+        
 
-            _isConnectedAndReady = true;
-            reader = usbCanDevice.OpenEndpointReader(ReadEndpointID.Ep01);
-
-            return 0;
         }
 
+       
         public void Disconnect()
         {
             if (usbCanDevice != null)
