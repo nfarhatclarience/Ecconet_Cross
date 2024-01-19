@@ -31,3 +31,4 @@ bld/
 [Ll]ogs/
 *.vs
 .cosine
+.fake
