@@ -1,1 +1,1 @@
-# Refactoring ECCONet3.0 to run on Linux ( and Possibly Other Platforms)
+# Refactoring ECCONet3.0 to work on Ubuntu Linux 
