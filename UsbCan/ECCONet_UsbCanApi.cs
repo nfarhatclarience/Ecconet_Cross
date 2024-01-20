@@ -650,7 +650,7 @@ namespace ECCONet.UsbCan
         const string ProductIDString = "0001";
         const string VendorIDString = "0x2D03";           
         //  the device managment class used for connecting (and reconnecting) to the USB-CAN device
-        readonly DeviceManagement deviceManagement = new DeviceManagement();
+        
 
         //  the USB-CAN device info provided by device management during initialization
         WinUsbCommunications.DeviceInfo usbCanDeviceInfo = new WinUsbCommunications.DeviceInfo();
@@ -663,6 +663,7 @@ namespace ECCONet.UsbCan
 
         //  indicates whether the USB-CAN device has been detected in a system resource search
         bool usbCanPresent;
+    
 
         //  the handle to the USB-CAN device
         SafeFileHandle usbCanHandle;
@@ -672,7 +673,7 @@ namespace ECCONet.UsbCan
 
         //	a process manager timer compatible with .NET Core
         Timer processManagerTimer;
-
+    
         //  the processor manager critical section lock
         object processManagerLock;
 
@@ -716,7 +717,7 @@ namespace ECCONet.UsbCan
             this.transmitDelaymS = 1;
 
             //  add the device removed handler
-            AddDeviceRemovedHandler();
+           //AddDeviceRemovedHandler();
 
             //  create the process manager lock
             processManagerLock = new object();
