@@ -11,23 +11,9 @@ namespace USBCANAPIDemonstrator
            ECCONet_UsbCanApi usbCanApi = null;
            ECCONet_UsbDotNetCanApi usbDotNetCanApi = null; 
            Console.WriteLine("Monitoring USB-CAN device connection status...");
-           Console.WriteLine("Press '1' to exit.");
-            if (args[0] == "1")
-                {   
-                    
-                    usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
-                }
-            else
-                {   
-                  
-                    usbDotNetCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);;
-                  
-                }
-
+           Console.WriteLine("Press '1' to exit, '2' To disconnect");
             // Subscribe to the connection status changed event
-        while (true)
-        {
-             if (args[0] == "1")
+            if (args[0] == "1")
                 {   
                     Console.WriteLine("Using ECCONet_UsbCanApi");
                     usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
@@ -42,16 +28,14 @@ namespace USBCANAPIDemonstrator
 
             // Wait for the user to end the demonstration
             var user_input = Console.ReadLine();
-            if (user_input == "1")
-            {
-                break;
-            }
+           
         }
-        }
+        
 
         private static void ConnectionStatusChanged(bool isConnected)
         {
             Console.WriteLine($"USB-CAN Connection Status: {(isConnected ? "Connected" : "Disconnected")}");
         }
     }
+
 }

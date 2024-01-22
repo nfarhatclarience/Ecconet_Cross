@@ -636,44 +636,19 @@ namespace ECCONet.UsbCan
         /// Indicates whether the USB-CAN device has been found and is ready for use.
         /// </summary>
         public bool isConnectedAndReady { get => _isConnectedAndReady; }
-        private bool _isConnectedAndReady;
+        static private bool _isConnectedAndReady = false;
         // libdontnet stuff
-        private UsbDeviceFinder code3UsbCanDeviceFinder;
-        private UsbDevice code3UsbCanDevice;
-
+        static private UsbDeviceFinder code3UsbCanDeviceFinder;
+        static private UsbDevice code3UsbCanDevice;
+        static private Timer usbDevicePollingTimer;
 
         //  USB-CAN device info
         const String DeviceInterfaceGuid = "{F08AF5A1-9FB4-4C01-BA4A-6D80546B86A7}";
         const int VendorID = 0x2D03;
-        const int ProductID = 0x0001;
-
-        const string ProductIDString = "0001";
-        const string VendorIDString = "0x2D03";           
-        //  the device managment class used for connecting (and reconnecting) to the USB-CAN device
-        
-
-        //  the USB-CAN device info provided by device management during initialization
-        WinUsbCommunications.DeviceInfo usbCanDeviceInfo = new WinUsbCommunications.DeviceInfo();
-
-        //  an instance of the class designed by Jan Axelson as a wrapper around the WinUsb communications driver
-        WinUsbCommunications winUsbCommunications = new WinUsbCommunications();
-
-        //  a handle to the WinUsb communications driver
-        WinUsbCommunications.SafeWinUsbHandle winUsbHandle = new WinUsbCommunications.SafeWinUsbHandle();
-
-        //  indicates whether the USB-CAN device has been detected in a system resource search
-        bool usbCanPresent;
+        const int ProductID = 0x0001;          
     
-
-        //  the handle to the USB-CAN device
-        SafeFileHandle usbCanHandle;
-
-        //  a device remover watcher for knowing if the USB-CAN device is removed
-        ManagementEventWatcher deviceRemovedWatcher;
-
-        //	a process manager timer compatible with .NET Core
         Timer processManagerTimer;
-    
+        const  uint pollingIntervalMilliSeconds = 1000;
         //  the processor manager critical section lock
         object processManagerLock;
 
@@ -691,18 +666,14 @@ namespace ECCONet.UsbCan
 
         //  a thread to read CAN frames for the blocking WinUSB read pipe
         Thread canReadThread;
-
         //  a flag to abort the read thread
         //  does not need to be made thread-safe, as will only ever be set
         bool shouldAbortReadThread;
-
         //  a thread to write CAN frames
         Thread canWriteThread;
-
         //  a flag to abort the write thread
         //  does not need to be made thread-safe, as will only ever be set
         bool shouldAbortWriteThread;
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -711,25 +682,20 @@ namespace ECCONet.UsbCan
         public ECCONet_UsbDotNetCanApi(bool shouldAutoConnect)
         {
             //  save the auto-connect mode
+            // setup the USB device Finder for the Code 3 USB-CAN device
+            code3UsbCanDeviceFinder = new UsbDeviceFinder((VendorID), (ProductID));
             this.shouldAutoConnect = shouldAutoConnect;
 
             //  set the transmit delay to default
-            this.transmitDelaymS = 1;
-
-            //  add the device removed handler
-           //AddDeviceRemovedHandler();
+            this.transmitDelaymS = 1;           
 
             //  create the process manager lock
             processManagerLock = new object();
 
             //	create the process manager timer
-            processManagerTimer = new Timer(new TimerCallback(processManagerTimerCallback), null, 0, 1000);
-
+            processManagerTimer = new Timer(processManagerTimerCallback, null, 0, pollingIntervalMilliSeconds);
             //  create the transmitter lock
             transmitterLock = new object();
-
-            // setup the USB device Finder for the Code 3 USB-CAN device
-            code3UsbCanDeviceFinder = new UsbDeviceFinder((VendorID), (ProductID));
         }
 
         /// <summary>
@@ -759,6 +725,21 @@ namespace ECCONet.UsbCan
                 processManagerBusy = 1;
 
                 //  if USB is not ready and auto-connect enabled
+                bool deviceFound = false;
+                foreach (UsbRegistry usbRegistry in UsbDevice.AllDevices)
+                    {
+                        if (usbRegistry.Vid == VendorID && usbRegistry.Pid == ProductID)
+                            {
+                                deviceFound = true;
+                                break;
+                            }
+                            }
+
+                        if ( !deviceFound )
+                        {
+                            Console.WriteLine("Code3 Device is not Found and Disconnected");
+                            _isConnectedAndReady = false; 
+                        }
                 if (!_isConnectedAndReady && shouldAutoConnect)
                 {
                     //  request reconnect
@@ -775,27 +756,17 @@ namespace ECCONet.UsbCan
 
                     try
                     {
+    
+                        {
+                            Connect();
+                        }
                         //  debug
                         Debug.WriteLine("USB-CAN: Trying to connect.");
-
                         //  disconnect
-                        if ((null != usbCanHandle) && (null != winUsbHandle))
-                            winUsbCommunications.CloseDeviceHandle(usbCanHandle, winUsbHandle);
-
                         //  wait
                         Thread.Sleep(100);
-
-                        //  new USB-CAN device info provided by device management during initialization
-                        usbCanDeviceInfo = new WinUsbCommunications.DeviceInfo();
-
-                        //  new instance of the class designed by Jan Axelson as a wrapper around the WinUsb communications driver
-                        winUsbCommunications = new WinUsbCommunications();
-
-                        //  new handle to the WinUsb communications driver
-                        winUsbHandle = new WinUsbCommunications.SafeWinUsbHandle();
-
                         //  connect
-                        Connect();
+                        
                     }
                     catch (Exception ex)
                     {
@@ -874,10 +845,9 @@ namespace ECCONet.UsbCan
             {
                 try
                 {
-                    // Find and open the USB device via the Code 3 USB-CAN device finder
-                    const uint pipeTimeout = 1000;
-              
-                    //  try to find the device via Guid
+                    // added timeout to the device finder
+                    //  try to find the device via Vendor and Product ID
+
                     code3UsbCanDevice = UsbDevice.OpenUsbDevice(code3UsbCanDeviceFinder);
 
                     bool deviceFound = code3UsbCanDevice != null;
@@ -886,21 +856,16 @@ namespace ECCONet.UsbCan
                     //  if the device was found
                     if (deviceFound)
                     {   
-                        Console.WriteLine("Found Code3 Device");
-                       
-                        if (code3UsbCanDevice != null)
-                        {
-                            Console.WriteLine("Open Code3 Device");
-                            _isConnectedAndReady = true;
-                        }
-                        //  try to get handle
-                      
-                        else  //  no handle
-                        {
-                            Console.WriteLine("Couldn't Open Code3 Device");
-                            _isConnectedAndReady = false;
-                        }
+                        Console.WriteLine("Code3 Device is connected and Ready");
+                        _isConnectedAndReady = true;
                     }
+                    else  //  no handle
+                    {
+                        Console.WriteLine("Couldn't Open Code3 Device");
+                        _isConnectedAndReady = false;
+                        code3UsbCanDevice = null;
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -923,15 +888,16 @@ namespace ECCONet.UsbCan
             {
                 if (code3UsbCanDevice != null)
                 {
-                // Close the device
-                code3UsbCanDevice.Close();
-                code3UsbCanDevice = null;
+                    // Close the device
+                    code3UsbCanDevice.Close();
+                    code3UsbCanDevice = null;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+
             shouldAutoConnect = false;
             _isConnectedAndReady = false;
             shouldAbortReadThread = true;
@@ -939,73 +905,6 @@ namespace ECCONet.UsbCan
             connectionStatusChangedDelegate?.Invoke(_isConnectedAndReady);
         }
 
-        /// <summary>
-        /// Use WMI to find the USB-CAN device by Vendor ID and Product ID.
-        /// </summary>
-        /// <returns>Returns a value indicating whether the USB-CAN device is (still) present.</returns>
-        private Boolean IsUsbCanPresent()
-        {
-            bool usbCanPresent = false;
-            try
-            {
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity");
-                foreach (ManagementObject queryObj in searcher.Get())
-                {
-                    const string deviceIdString = @"USB\VID_" + VendorIDString + "&PID_" + ProductIDString;
-                    if (queryObj["PNPDeviceID"].ToString().Contains(deviceIdString))
-                        usbCanPresent = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            return usbCanPresent;
-        }
-
-        ///  <summary>
-        ///  Create a device removed watcher.
-        ///  </summary>
-        private void AddDeviceRemovedHandler()
-        {
-            const Int32 pollingIntervalSeconds = 3;
-            ManagementScope scope = new ManagementScope("root\\CIMV2");
-            scope.Options.EnablePrivileges = true;
-
-            //  try to add watcher and device removed handler
-            try
-            {
-                var q = new WqlEventQuery();
-                q.EventClassName = "__InstanceDeletionEvent";
-                q.WithinInterval = new TimeSpan(0, 0, pollingIntervalSeconds);
-                q.Condition = @"TargetInstance ISA 'Win32_USBControllerdevice'";
-                deviceRemovedWatcher = new ManagementEventWatcher(scope, q);
-                deviceRemovedWatcher.EventArrived += _deviceRemovedWatcher_EventArrived;
-                deviceRemovedWatcher.Start();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                if (deviceRemovedWatcher != null)
-                    deviceRemovedWatcher.Stop();
-            }
-        }
-
-        /// <summary>
-        /// Called on removal of any device.
-        /// Calls the IsUsbCanPresent() method to know if the USB-CAN device was removed.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void _deviceRemovedWatcher_EventArrived(object sender, EventArrivedEventArgs e)
-        {
-            usbCanPresent = IsUsbCanPresent();
-            if (!usbCanPresent)
-            {
-                _isConnectedAndReady = false;
-                connectionStatusChangedDelegate?.Invoke(_isConnectedAndReady);
-            }
-        }
 
         /// <summary>
         /// Sends a CAN frame to the bus.
@@ -1080,8 +979,8 @@ namespace ECCONet.UsbCan
                         while (dataToSendQueue.TryDequeue(out dataToSend))
                         {
                             //  send CAN frame
-                            winUsbCommunications.SendDataViaBulkTransfer(winUsbHandle, usbCanDeviceInfo,
-                                (UInt32)dataToSend.Length, dataToSend, ref numBytesWritten, ref success);
+                          //  winUsbCommunications.SendDataViaBulkTransfer(winUsbHandle, usbCanDeviceInfo,
+                            //    (UInt32)dataToSend.Length, dataToSend, ref numBytesWritten, ref success);
 
                             //  if success, reset tries
                             if (success)
@@ -1134,9 +1033,12 @@ namespace ECCONet.UsbCan
                     if (_isConnectedAndReady)
                     {
                         //  try to recieve frame
-                        winUsbCommunications.ReceiveDataViaBulkTransfer(
-                           winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
-
+                       // winUsbCommunications.ReceiveDataViaBulkTransfer(
+                          // winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
+                      // replace with libDotnetusb
+                        UsbSetupPacket setupPacket = new UsbSetupPacket(0x80, 0x06, 0x0100, 0x0000, 0x0000);
+                        code3UsbCanDevice.ControlTransfer(ref setupPacket, usbData, 256, out numBytesRead);
+                        
                         //  if success, format message and send to delegate
                         if (success)
                         {
