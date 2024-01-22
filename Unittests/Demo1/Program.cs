@@ -8,16 +8,45 @@ namespace USBCANAPIDemonstrator
         static void Main(string[] args)
         {
             // Initialize the USBCANAPI
-            var usbCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);
+           ECCONet_UsbCanApi usbCanApi = null;
+           ECCONet_UsbDotNetCanApi usbDotNetCanApi = null; 
+           Console.WriteLine("Monitoring USB-CAN device connection status...");
+           Console.WriteLine("Press '1' to exit.");
+            if (args[0] == "1")
+                {   
+                    
+                    usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
+                }
+            else
+                {   
+                  
+                    usbDotNetCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);;
+                  
+                }
 
             // Subscribe to the connection status changed event
-            usbCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
-
-            Console.WriteLine("Monitoring USB-CAN device connection status...");
-            Console.WriteLine("Press 'Enter' to exit.");
+        while (true)
+        {
+             if (args[0] == "1")
+                {   
+                    Console.WriteLine("Using ECCONet_UsbCanApi");
+                    usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
+                    usbCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
+                }
+            else
+                {   
+                    Console.WriteLine("Using ECCONet_UsbDotNetCanApi");
+                    usbDotNetCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);
+                    usbDotNetCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
+                }
 
             // Wait for the user to end the demonstration
-            Console.ReadLine();
+            var user_input = Console.ReadLine();
+            if (user_input == "1")
+            {
+                break;
+            }
+        }
         }
 
         private static void ConnectionStatusChanged(bool isConnected)
