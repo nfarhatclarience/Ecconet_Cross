@@ -1036,8 +1036,8 @@ namespace ECCONet.UsbCan
                        // winUsbCommunications.ReceiveDataViaBulkTransfer(
                           // winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
                       // replace with libDotnetusb
-                        UsbSetupPacket setupPacket = new UsbSetupPacket(0x80, 0x06, 0x0100, 0x0000, 0x0000);
-                        code3UsbCanDevice.ControlTransfer(ref setupPacket, usbData, 256, out numBytesRead);
+                        //UsbSetupPacket setupPacket = new UsbSetupPacket(0x80, 0x06, 0x0100, 0x0000, 0x0000);
+                       // code3UsbCanDevice.ControlTransfer(ref setupPacket, usbData, 256, out numBytesRead);
                         
                         //  if success, format message and send to delegate
                         if (success)
