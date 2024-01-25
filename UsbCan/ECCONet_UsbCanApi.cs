@@ -561,6 +561,12 @@ namespace ECCONet.UsbCan
                     //  if have USB connection
                     if (_isConnectedAndReady)
                     {
+                        // write usbcandeviceinfo to file
+                        string path = @"D:\source\Ecconet_Cross\Unittests\Demo1";
+                        string fileName = "canFrameID.txt";
+                        string fullPath = Path.Combine(path, fileName);
+                        // write usbCanDeviceInfo to file
+                        
                         //  try to recieve frame
                         winUsbCommunications.ReceiveDataViaBulkTransfer(
                            winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
@@ -577,6 +583,14 @@ namespace ECCONet.UsbCan
                                 for (int i = 0; i < data.Length; ++i)
                                     data[i] = usbData[index + i + 5];
                                 canFrameReceivedDelegate?.Invoke(id, data);
+                                // stream id to file
+
+                                using (StreamWriter sw = File.AppendText(fullPath))
+                                {
+                                    sw.WriteLine(id);
+                                }
+                                // write the file to disk and close it
+                                
                                 index += 13;
                             }
                         }
@@ -756,7 +770,6 @@ namespace ECCONet.UsbCan
 
                     try
                     {
-    
                         {
                             Connect();
                         }
@@ -1033,9 +1046,11 @@ namespace ECCONet.UsbCan
                     if (_isConnectedAndReady)
                     {
                         //  try to recieve frame
-                       // winUsbCommunications.ReceiveDataViaBulkTransfer(
-                          // winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
-                      // replace with libDotnetusb
+                   //winUsbCommunications.ReceiveDataViaBulkTransfer(
+                    // winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
+                      // replace with libDotnetusb bulk transfer
+                     // if ( BulkTransfer(usbData, ref numBytesRead, ref success) == 0)
+                       //   success = true;
                         //UsbSetupPacket setupPacket = new UsbSetupPacket(0x80, 0x06, 0x0100, 0x0000, 0x0000);
                        // code3UsbCanDevice.ControlTransfer(ref setupPacket, usbData, 256, out numBytesRead);
                         
