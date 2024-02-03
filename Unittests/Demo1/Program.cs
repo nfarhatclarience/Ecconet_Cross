@@ -13,12 +13,15 @@ namespace USBCANAPIDemonstrator
            Console.WriteLine("Monitoring USB-CAN device connection status...");
            Console.WriteLine("Press '1' to exit, '2' To disconnect");
             // Subscribe to the connection status changed event
-            if (args[0] == "1")
-                {   
+            // condition when no argument is passed
+            if (args.Length == 0)
+                {
                     Console.WriteLine("Using ECCONet_UsbCanApi");
                     usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
                     usbCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
                 }
+         
+           
             else
                 {   
                     Console.WriteLine("Using ECCONet_UsbDotNetCanApi");
