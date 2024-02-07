@@ -1,12 +1,13 @@
-We have two environments: The build environment, which is going to be an Unbuntu Linux on a 64-bit intel machine, and the target Environment, which is going to be a BeagleBone Play running Debian 11. The build environment is used to build the application, and the target environment is used to run the application.
-## Build Environment Setup
-1. Download the latest version of Ubuntu from https://ubuntu.com/download/desktop
-2. Install .net 6.0 by using the Ubuntu packages available from https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu
-3. Install the upgrade assistant for dotnet from https://dotnet.microsoft.com/en-us/platform/upgrade-assistant
-4. Get the ECConet source code 
+# Setup 
+## Preliminaries are converting from .net framework 4.5 to .net core (.net 6.0)
+1. Get the ECCOnet source code 
 5. go to the source code and run the upgrade-assistant upgrade for each folder
-6. Follow the instructions to upgrade the code to .net 6.0
+6. Follow the instructions to upgrade the code to .net 8.0
 7. Go back to the top ECCOnet director. Open the solution in Visual Studio 2022 and build the solution or run the command dotnet build
+## Build Environment Setup
+1. Windows or Ubuntu Linux with .net 8.0 ( I expect to work with any Linux flavor) 
+1. Download the latest version of Ubuntu from https://ubuntu.com/download/desktop
+2. Install .net 8.0 by using the Ubuntu packages available from https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu
 
 ## Target Environment Setup
 ### Flashing the BeagleBone Play
@@ -24,7 +25,7 @@ We have two environments: The build environment, which is going to be an Unbuntu
 5. Select the network you want to connect to and enter the password
 6. Open a terminal and do sudo apt update
 7. BeagleBone Play can also be accessed through ssh debian@192.168.7.2
-### .Net 6.0 Installation
+### .Net 8.0 SDK Installation
 1. Go to the website https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#manual-install
 2. Follow the instructions to install .Net 6.0 for Debian 11
 3. To check if the installation was successful, open a terminal and type dotnet --version
