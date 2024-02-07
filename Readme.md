@@ -1,5 +1,5 @@
 # Setup 
-## Preliminaries are converting from .net framework 4.5 to .net core (.net 6.0)
+## Preliminaries are converting from .net framework 4.5 to .net core (.net 8.0)
 1. Get the ECCOnet source code 
 5. go to the source code and run the upgrade-assistant upgrade for each folder
 6. Follow the instructions to upgrade the code to .net 8.0
