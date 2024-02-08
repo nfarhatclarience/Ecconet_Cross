@@ -80,8 +80,10 @@ namespace ECCONet
         /// <summary>
         /// The Code 3 USB-CAN device API.
         /// </summary>
-        public ECCONet_UsbCanApi usbCanApi { get { return _usbCanApi; } }
-        ECCONet_UsbCanApi _usbCanApi;
+        //public ECCONet_UsbDotNetCanApi usbCanApi { get { return _usbCanApi; } }
+        public ECCONet_UsbDotNetCanApi usbCanApi { get { return _usbCanApi; } }
+
+        ECCONet_UsbDotNetCanApi _usbCanApi;
 
         /// <summary>
         /// The ECCONet core logic.
@@ -136,7 +138,8 @@ namespace ECCONet
             //_pcanUsbApi = new ECCONet_PcanUsbApi(true);
 
             //  create the USB-CAN API, requesting auto-connect
-            _usbCanApi = new ECCONet_UsbCanApi(true);
+            _usbCanApi = new ECCONet_UsbDotNetCanApi(true);
+           //_usbCanApi = new ECCONet_UsbDotNetCanApi(true);
 
             //  this PcanUsbConnectionStatusChanged is the PCAN-USB connection status changed delegate
             //_pcanUsbApi.connectionStatusChangedDelegate = PcanUsbConnectionStatusChanged;

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ProductAssembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ModelName="SerialSiren">
+  <Components>
+    <OutputArray Name="Sequenced Single Wire Outputs" Id="0" Type="S4">
+      <Components>
+        <Output Id="500">
+          <Location X="-5" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="501">
+          <Location X="-4" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="502">
+          <Location X="-3" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="503">
+          <Location X="-2" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="504">
+          <Location X="-1" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="505">
+          <Location X="1" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="506">
+          <Location X="2" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="507">
+          <Location X="3" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="508">
+          <Location X="4" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="509">
+          <Location X="5" Y="0" Z="0" Angle="0" />
+        </Output>
+      </Components>
+    </OutputArray>
+    <OutputArray Name="Single Wire Outputs" Id="0" Type="NS">
+      <Components>
+        <Output Id="510">
+          <Location X="6" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="511">
+          <Location X="7" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="512">
+          <Location X="8" Y="0" Z="0" Angle="0" />
+        </Output>
+        <Output Id="513">
+          <Location X="9" Y="0" Z="0" Angle="0" />
+        </Output>
+      </Components>
+    </OutputArray>
+  </Components>
+  <Ids />
+</ProductAssembly>

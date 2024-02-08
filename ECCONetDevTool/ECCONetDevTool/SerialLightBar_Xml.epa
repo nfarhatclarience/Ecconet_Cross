@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<ProductAssembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ModelName="SerialLightBar">
+  <Components>
+    <OutputArray Name="Light Engines" Id="0" Type="S6">
+      <Components>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-5" Y="0" Z="0" Angle="270" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-4" Y="0" Z="0" Angle="315" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-3" Y="0" Z="0" Angle="0" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-2" Y="0" Z="0" Angle="0" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="0" Y="0" Z="0" Angle="0" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="2" Y="0" Z="0" Angle="0" />
+          <Components>
+            <ColorOutput Id="0" Color="Blue">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="3" Y="0" Z="0" Angle="0" />
+          <Components>
+            <ColorOutput Id="0" Color="Blue">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="4" Y="0" Z="0" Angle="45" />
+          <Components>
+            <ColorOutput Id="0" Color="Blue">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="5" Y="0" Z="0" Angle="90" />
+          <Components>
+            <ColorOutput Id="0" Color="Blue">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="4" Y="0" Z="0" Angle="135" />
+          <Components>
+            <ColorOutput Id="0" Color="Red">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="3" Y="0" Z="0" Angle="180" />
+          <Components>
+            <ColorOutput Id="0" Color="Amber">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="2" Y="0" Z="0" Angle="180" />
+          <Components>
+            <ColorOutput Id="0" Color="Amber">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="0" Y="0" Z="0" Angle="180" />
+          <Components>
+            <ColorOutput Id="0" Color="Amber">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-2" Y="0" Z="0" Angle="180" />
+          <Components>
+            <ColorOutput Id="0" Color="Amber">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-3" Y="0" Z="0" Angle="180" />
+          <Components>
+            <ColorOutput Id="0" Color="Amber">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+        <ProductAssembly ModelName="Torus">
+          <Location X="-4" Y="0" Z="0" Angle="225" />
+          <Components>
+            <ColorOutput Id="0" Color="Blue">
+              <Components>
+                <Output Id="0" />
+              </Components>
+            </ColorOutput>
+          </Components>
+        </ProductAssembly>
+      </Components>
+    </OutputArray>
+  </Components>
+</ProductAssembly>

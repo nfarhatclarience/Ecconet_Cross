@@ -660,7 +660,8 @@ namespace ECCONet.UsbCan
         const String DeviceInterfaceGuid = "{F08AF5A1-9FB4-4C01-BA4A-6D80546B86A7}";
         const int VendorID = 0x2D03;
         const int ProductID = 0x0001;          
-    
+        private const byte BulkInEndpointId = 0x81; // Endpoint ID for bulk read
+        private const byte BulkOutEndpointId = 0x01; // Endpoint ID for bulk write
         Timer processManagerTimer;
         const  uint pollingIntervalMilliSeconds = 1000;
         //  the processor manager critical section lock
@@ -1034,9 +1035,9 @@ namespace ECCONet.UsbCan
         private void ReadCanFrames()
         {
             byte[] usbData = new byte[256];
-            UInt32 numBytesRead = 0;
-            bool success = false;
-
+            int numBytesRead = 0;
+            UsbEndpointReader reader = code3UsbCanDevice.OpenEndpointReader((ReadEndpointID)BulkInEndpointId);
+    
             try
             {
                 //  while thread alive
@@ -1045,30 +1046,27 @@ namespace ECCONet.UsbCan
                     //  if have USB connection
                     if (_isConnectedAndReady)
                     {
-                        //  try to recieve frame
-                   //winUsbCommunications.ReceiveDataViaBulkTransfer(
-                    // winUsbHandle, usbCanDeviceInfo, 256, ref usbData, ref numBytesRead, ref success);
-                      // replace with libDotnetusb bulk transfer
-                     // if ( BulkTransfer(usbData, ref numBytesRead, ref success) == 0)
-                       //   success = true;
-                        //UsbSetupPacket setupPacket = new UsbSetupPacket(0x80, 0x06, 0x0100, 0x0000, 0x0000);
-                       // code3UsbCanDevice.ControlTransfer(ref setupPacket, usbData, 256, out numBytesRead);
-                        
-                        //  if success, format message and send to delegate
-                        if (success)
+                    // write to console if the device is connected
+                    
+                    //  if success, format message and send to delegate
+                    ErrorCode ecRead = reader.Read(usbData, 2000, out numBytesRead);
+                    if (ecRead == ErrorCode.None) 
+                    {
+                           
+                        int index = 0;
+                        while (index < numBytesRead)
                         {
-                            int index = 0;
-                            while (index < numBytesRead)
-                            {
-                                UInt32 id = (UInt32)((usbData[index] << 24) | (usbData[index + 1] << 16)
-                                    | (usbData[index + 2] << 8) | usbData[index + 3]);
-                                byte[] data = new byte[usbData[index + 4]];
-                                for (int i = 0; i < data.Length; ++i)
-                                    data[i] = usbData[index + i + 5];
-                                canFrameReceivedDelegate?.Invoke(id, data);
-                                index += 13;
+                            UInt32 id = (UInt32)((usbData[index] << 24) | (usbData[index + 1] << 16)
+                                | (usbData[index + 2] << 8) | usbData[index + 3]);
+                            byte[] data = new byte[usbData[index + 4]];
+                            for (int i = 0; i < data.Length; ++i)
+                                data[i] = usbData[index + i + 5];
+                            canFrameReceivedDelegate?.Invoke(id, data);
+                                
+                            index += 13;
+                            
                             }
-                        }
+                    }
                     }
                     else
                     {

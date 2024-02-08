@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<ProductAssembly xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ModelName="PursuitLightBar">
+  <Components>
+    <OutputArray Name="LED Outputs" Id="0" Type="S4">
+      <Components>
+        <ColorOutput Id="532" Color="Red">
+          <Location X="-5" Z="1" Angle="270" />
+        </ColorOutput>
+        <ColorOutput Id="531" Color="Red">
+          <Location X="-4" Z="1" Angle="315" />
+        </ColorOutput>
+        <ColorOutput Id="530" Color="Red">
+          <Location X="-3" Z="1" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="529" Color="Red">
+          <Location X="-2" Z="1" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="51" Color="White">
+          <Location X="0" Z="1" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="520" Color="Blue">
+          <Location X="2" Z="1" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="519" Color="Blue">
+          <Location X="3" Z="1" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="518" Color="Blue">
+          <Location X="4" Z="1" Angle="45" />
+        </ColorOutput>
+        <ColorOutput Id="517" Color="Blue">
+          <Location X="5" Z="1" Angle="90" />
+        </ColorOutput>
+        <ColorOutput Id="52" Color="Blue">
+          <Location X="4" Z="1" Angle="135" />
+        </ColorOutput>
+        <ColorOutput Id="53" Color="Blue">
+          <Location X="3" Z="1" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="54" Color="Blue">
+          <Location X="2" Z="1" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="516" Color="White">
+          <Location X="0" Z="1" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="513" Color="Red">
+          <Location X="-2" Z="1" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="514" Color="Red">
+          <Location X="-3" Z="1" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="515" Color="Red">
+          <Location X="-4" Z="1" Angle="225" />
+        </ColorOutput>
+        <ColorOutput Id="564" Color="White">
+          <Location X="-5" Z="0" Angle="270" />
+        </ColorOutput>
+        <ColorOutput Id="563" Color="White">
+          <Location X="-4" Z="0" Angle="315" />
+        </ColorOutput>
+        <ColorOutput Id="562" Color="White">
+          <Location X="-3" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="561" Color="White">
+          <Location X="-2" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="560" Color="White">
+          <Location X="-1" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="553" Color="White">
+          <Location X="1" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="552" Color="White">
+          <Location X="2" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="551" Color="White">
+          <Location X="3" Z="0" Angle="0" />
+        </ColorOutput>
+        <ColorOutput Id="550" Color="White">
+          <Location X="4" Z="0" Angle="45" />
+        </ColorOutput>
+        <ColorOutput Id="549" Color="White">
+          <Location X="5" Z="0" Angle="90" />
+        </ColorOutput>
+        <ColorOutput Id="534" Color="White">
+          <Location X="4" Z="0" Angle="135" />
+        </ColorOutput>
+        <ColorOutput Id="535" Color="Amber">
+          <Location X="3" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="536" Color="Amber">
+          <Location X="2" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="537" Color="Amber">
+          <Location X="1" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="544" Color="Amber">
+          <Location X="-1" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="545" Color="Amber">
+          <Location X="-2" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="546" Color="Amber">
+          <Location X="-3" Z="0" Angle="180" />
+        </ColorOutput>
+        <ColorOutput Id="547" Color="White">
+          <Location X="-4" Z="0" Angle="225" />
+        </ColorOutput>
+      </Components>
+    </OutputArray>
+  </Components>
+</ProductAssembly>

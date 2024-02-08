@@ -1,0 +1,317 @@
+{
+	"ModelName": "PursuitLightBar",
+	"With": [{
+			"OutputArrayType": "S4",
+			"Name": "LED Outputs",
+			"Id": 0,
+			"With": [{
+					"Color": "Red",
+					"Id": 532,
+					"Location": {
+						"X": -5,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 270.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 531,
+					"Location": {
+						"X": -4,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 315.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 530,
+					"Location": {
+						"X": -3,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 529,
+					"Location": {
+						"X": -2,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 501,
+					"Location": {
+						"X": 0,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 520,
+					"Location": {
+						"X": 2,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 519,
+					"Location": {
+						"X": 3,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 518,
+					"Location": {
+						"X": 4,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 45.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 517,
+					"Location": {
+						"X": 5,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 90.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 502,
+					"Location": {
+						"X": 4,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 135.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 503,
+					"Location": {
+						"X": 3,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Blue",
+					"Id": 504,
+					"Location": {
+						"X": 2,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 516,
+					"Location": {
+						"X": 0,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 513,
+					"Location": {
+						"X": -2,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 514,
+					"Location": {
+						"X": -3,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Red",
+					"Id": 515,
+					"Location": {
+						"X": -4,
+						"Y": 0,
+						"Z": 1,
+						"Angle": 225.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 564,
+					"Location": {
+						"X": -5,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 270.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 563,
+					"Location": {
+						"X": -4,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 315.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 562,
+					"Location": {
+						"X": -3,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 561,
+					"Location": {
+						"X": -2,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 560,
+					"Location": {
+						"X": -1,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 553,
+					"Location": {
+						"X": 1,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 552,
+					"Location": {
+						"X": 2,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 551,
+					"Location": {
+						"X": 3,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 0.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 550,
+					"Location": {
+						"X": 4,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 45.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 549,
+					"Location": {
+						"X": 5,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 90.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 534,
+					"Location": {
+						"X": 4,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 135.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 535,
+					"Location": {
+						"X": 3,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 536,
+					"Location": {
+						"X": 2,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 537,
+					"Location": {
+						"X": 1,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 544,
+					"Location": {
+						"X": -1,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 545,
+					"Location": {
+						"X": -2,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "Amber",
+					"Id": 546,
+					"Location": {
+						"X": -3,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 180.0
+					}
+				}, {
+					"Color": "White",
+					"Id": 547,
+					"Location": {
+						"X": -4,
+						"Y": 0,
+						"Z": 0,
+						"Angle": 225.0
+					}
+				}
+			]
+		}
+	]
+}

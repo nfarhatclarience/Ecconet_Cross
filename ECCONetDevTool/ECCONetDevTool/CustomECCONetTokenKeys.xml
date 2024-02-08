@@ -1,0 +1,7 @@
+<!-- This file allows you to add custom token keys to the standard ECCONet token keys enumerations for the DevTool -->
+<!-- Format: <item id="0" value="Null" />  'id' is key code , and 'value' is key name, less the "Key" prefix -->
+
+<items>
+  <item id="0" value="Null" />
+</items>
+
