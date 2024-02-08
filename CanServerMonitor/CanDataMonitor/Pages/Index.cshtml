@@ -1,0 +1,57 @@
+﻿@page
+@model IndexModel 
+@{
+    ViewData["Title"] = "CAN Data Monitor";
+}
+
+<h1>CAN Data Monitor</h1>
+
+<table id="canDataTable">
+    <thead>
+        <tr>
+            <th>Direction</th>
+            <th>Timestamp</th>
+            <th>ID</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody></tbody> 
+</table>
+
+<script>
+    // Function to fetch CAN data from the server
+    async function fetchCanData() {
+        try {
+            const response = await fetch('/api/can') // Fetch the data
+                                    .then(response => response.json())  
+                                    .then(canData => {
+                                    console.log("Server Response:", canData); // See exactly what the server gives
+                                    updateTable(canData);
+                                    }) 
+        } catch (error) {
+            console.error('Error fetching CAN data:', error); 
+            // Handle the error  (e.g., display a message to the user) 
+        }
+    }
+
+    // Function to update the table content
+    function updateTable(canData) {
+        const tableBody = document.getElementById('canDataTable').querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        // Add new rows based on the fetched CAN data
+        canData.forEach(frame => {
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = frame.direction; 
+            row.insertCell().textContent = frame.timestamp;
+            row.insertCell().textContent = frame.id;
+            row.insertCell().textContent = frame.data; 
+        });
+    }
+
+    // Initial fetch on page load
+    fetchCanData(); 
+
+    //  Periodically fetch for updates (modify interval as needed) 
+    setInterval(fetchCanData, 5000); // Fetch every 5 seconds
+</script>

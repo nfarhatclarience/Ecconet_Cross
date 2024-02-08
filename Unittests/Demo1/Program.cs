@@ -1,23 +1,29 @@
 ﻿using System;
 using ECCONet.UsbCan; // Replace with the actual namespace of your USBCANAPI
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace USBCANAPIDemonstrator
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // Initialize the USBCANAPI
-           ECCONet_UsbCanApi usbCanApi = null;
+           ECCONet_UsbDotNetCanApi usbCanApi = null;
            ECCONet_UsbDotNetCanApi usbDotNetCanApi = null; 
            Console.WriteLine("Monitoring USB-CAN device connection status...");
            Console.WriteLine("Press '1' to exit, '2' To disconnect");
+            var canDataProcessor = new CanDataProcessor("http://localhost:5005"); // Adjust port if needed
+
             // Subscribe to the connection status changed event
             // condition when no argument is passed
             if (args.Length == 0)
                 {
                     Console.WriteLine("Using ECCONet_UsbCanApi");
-                    usbCanApi = new ECCONet_UsbCanApi(shouldAutoConnect: true);
+                    usbCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);
                     usbCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
                     usbCanApi.canFrameReceivedDelegate += ReceivedCanFrame;
                 }
@@ -28,7 +34,17 @@ namespace USBCANAPIDemonstrator
                     Console.WriteLine("Using ECCONet_UsbDotNetCanApi");
                     usbDotNetCanApi = new ECCONet_UsbDotNetCanApi(shouldAutoConnect: true);
                     usbDotNetCanApi.connectionStatusChangedDelegate += ConnectionStatusChanged;
-                    usbDotNetCanApi.canFrameReceivedDelegate += ReceivedCanFrame;
+                    usbDotNetCanApi.canFrameReceivedDelegate += async (id, data) => 
+                    {
+                        try
+                        {
+                            await canDataProcessor.ProcessCanFrame(id, data);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Error.WriteLine($"Error processing CAN frame: {ex.Message}"); 
+                        }
+                    }; 
                 }
 
             // Wait for the user to end the demonstration
@@ -50,7 +66,8 @@ namespace USBCANAPIDemonstrator
                 printCanFrameToConsole(id, data, true);
 
                 //  forward CAN frame to receiver
-               
+                //var canDataProcessor = new CanDataProcessor();
+                //canDataProcessor.ProcessCanFrame(id, data);
                     //ReceiveCanFrame(id, data);
 
                 //  forward CAN frame to application
@@ -91,5 +108,9 @@ namespace USBCANAPIDemonstrator
             catch { }
         }
     }
+
+
+
+
 
 }
