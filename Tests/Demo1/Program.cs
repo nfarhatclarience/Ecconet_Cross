@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using ECCONet.UsbCan; // Replace with the actual namespace of your USBCANAPI
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -16,7 +16,7 @@ namespace USBCANAPIDemonstrator
            ECCONet_UsbDotNetCanApi usbDotNetCanApi = null; 
            Console.WriteLine("Monitoring USB-CAN device connection status...");
            Console.WriteLine("Press '1' to exit, '2' To disconnect");
-            var canDataProcessor = new CanDataProcessor("http://localhost:5005"); // Adjust port if needed
+           var canDataProcessor = new CanDataProcessor("http://localhost:5005"); // Adjust port if needed
 
             // Subscribe to the connection status changed event
             // condition when no argument is passed
@@ -64,14 +64,6 @@ namespace USBCANAPIDemonstrator
             {
                 //  print incoming CAN frame to console (if debug turned on)
                 printCanFrameToConsole(id, data, true);
-
-                //  forward CAN frame to receiver
-                //var canDataProcessor = new CanDataProcessor();
-                //canDataProcessor.ProcessCanFrame(id, data);
-                    //ReceiveCanFrame(id, data);
-
-                //  forward CAN frame to application
-                //ReceivedCanFrame?.Invoke(id, data);
             }
             catch (Exception ex)
             {
@@ -81,8 +73,6 @@ namespace USBCANAPIDemonstrator
 
         public static void  printCanFrameToConsole(UInt32 id, Byte[] data, bool incoming)
         {
-            //if (incoming)
-            //    return;
             try
             {
                 
@@ -95,22 +85,10 @@ namespace USBCANAPIDemonstrator
                     for (int i = 0; i < data.Length; ++i)
                         str += ("  " + data[i].ToString("X2"));
                     Console.WriteLine(str);
-
-                    /* Use this to log can frames
-                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Public\can_log.txt", true))
-                    {
-                        file.WriteLine(str);
-                        Console.WriteLine(str);
-                    }
-                    */
                 }
             }
             catch { }
         }
     }
-
-
-
-
 
 }
