@@ -32,8 +32,8 @@
 ### Build Ecconet Cross 
 1. After you clone the directory
 2. go to Ecconet_cross/Demo1/
-3. '''
+3. ```
    dotnet publish --runtime linux-arm64 --self-contained -p:PublishReadyToRun=true
-   '''
+   ```
 ### Move the Release to Single Board computer
 1.
