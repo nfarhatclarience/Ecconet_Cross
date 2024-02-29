@@ -24,9 +24,10 @@
 4. Go to Applications -> Internet -> wpa_gui
 5. Select the network you want to connect to and enter the password
 6. Open a terminal and do sudo apt update
-7. BeagleBone Play can also be accessed through
-   ``` ssh debian@192.168.7.2
-   ```` (usb-c)
+7. BeagleBone Play can also be accessed through  (usb-c)
+   ```
+   ssh debian@192.168.7.2
+   ```
    or
    ```
    ssh debian@192.168.1.162
