@@ -29,3 +29,9 @@
 1. Go to the website https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#manual-install
 2. Follow the instructions to install .Net 6.0 for Debian 11
 3. To check if the installation was successful, open a terminal and type dotnet --version
+### Build Ecconet Cross 
+1. After you clone the directory
+2. go to Ecconet_cross/Demo1/
+3. 'dotnet publish --runtime linux-arm64 --self-contained -p:PublishReadyToRun=true'
+### Move the Release to Single Board computer
+1.
