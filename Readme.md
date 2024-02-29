@@ -47,4 +47,8 @@
    dotnet publish --runtime linux-arm64 --self-contained -p:PublishReadyToRun=true
    ```
 ### Move the Release to Single Board computer
-1.
+1. go to Demo1/Bin directory
+2. copy the Release Directory to the SBC
+```
+scp -r Release debian@192.168.1.162:/home/debian
+```
