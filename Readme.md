@@ -52,3 +52,16 @@
 ```
 scp -r Release debian@192.168.1.162:/home/debian
 ```
+### Run the Demo 
+#### On the Server 
+1. go to the CanServerMonitor directory in this source code and run
+```
+uvicorn main:app --reload
+
+```
+2. on the Single Board computer, go to /home/debian/Release/net8.0/linux-arm64 and run with the ipaddress of the server.
+```
+./Demo1 IpAddRess
+```
+
+   
