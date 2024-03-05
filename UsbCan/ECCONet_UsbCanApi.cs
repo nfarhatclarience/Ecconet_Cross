@@ -977,12 +977,15 @@ namespace ECCONet.UsbCan
         private void WriteCanFrames()
         {
             byte[] dataToSend;
-            UInt32 numBytesWritten = 0;
+            int numBytesWritten = 0;
             bool success = false;
             int tries = 3;
+            ErrorCode ecwr;
 
             try
-            {
+            {    
+                // Open the bulk out endpoint for writing in libusbdotnet
+                UsbEndpointWriter writer = code3UsbCanDevice.OpenEndpointWriter((WriteEndpointID)BulkOutEndpointId);
                 //  while thread alive
                 while (!shouldAbortWriteThread)
                 {
@@ -995,9 +998,9 @@ namespace ECCONet.UsbCan
                             //  send CAN frame
                           //  winUsbCommunications.SendDataViaBulkTransfer(winUsbHandle, usbCanDeviceInfo,
                             //    (UInt32)dataToSend.Length, dataToSend, ref numBytesWritten, ref success);
-
+                            ecwr = writer.Write(dataToSend, 2000, out numBytesWritten);
                             //  if success, reset tries
-                            if (success)
+                            if (ecwr == ErrorCode.None)
                             {
                                 tries = 3;
                             }
