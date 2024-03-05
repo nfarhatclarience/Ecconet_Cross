@@ -9,7 +9,7 @@ namespace ECCONet
     /// <summary>
     /// The ECCONet core functionality class.
     /// </summary>
-public class ECCONetCore
+    internal sealed class ECCONetCore
     {
         private static NLog.Logger _logger = NLog.LogManager.GetCurrentClassLogger();
 

@@ -31,7 +31,7 @@ using System.Diagnostics;
 
 namespace ECCONet
 {
-    public class Receiver
+    internal sealed class Receiver
     {
         /// <summary>
         /// The Matrix receiver frame flag enumeration.
