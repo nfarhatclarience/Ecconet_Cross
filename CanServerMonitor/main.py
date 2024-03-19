@@ -1,6 +1,14 @@
 from fastapi import FastAPI
 from uvicorn import run
 import threading
+import argparse
+
+# take the server address or local host from the user
+
+parser = argparse.ArgumentParser(description='Server address')
+parser.add_argument('--server', type=str, help='Server address')
+args = parser.parse_args()
+server_address = args.server
 
 class LibConfig:
     # ... (Define other constants as needed)
@@ -42,4 +50,7 @@ async def receive_can_data(can_data: dict):
     #print("CAN Data received: ", can_data)
     return {"message": "CAN Data received successfully"}
 if __name__ == "__main__":
-    run("main:app", host="0.0.0.0",port = 8000, reload=True)
+    if server_address:
+        run("main:app", host=server_address, port=8000, reload=True)
+    else : #run local host
+        run("main:app")
