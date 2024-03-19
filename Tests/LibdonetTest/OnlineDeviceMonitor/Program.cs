@@ -1,52 +1,63 @@
-using System;
-using System.Threading;
 using ECCONet;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
-namespace ListOnlineDevices
+public class DeviceDiscoveryTest
 {
-    class Program
+    private static ECCONetApi api;
+
+    public static void Main(string[] args)
     {
-        static ECCONetApi canInterface;
+        // Initialize ECCONetApi
+        api = new ECCONetApi();
+        api.Pause = false; // Make sure the monitor is not paused
 
-        static void Main(string[] args)
+        // Subscribe to device list changed event (optional)
+        api.onlineDeviceListChangedDelegate += OnlineDeviceListChangedHandler;
+        api.deviceOnlineStatusEvent += DeviceOnlineStatusEventHandler;
+
+        // Get initial device list
+        List<ECCONetApi.ECCONetDevice> initialDevices = api.GetOnlineDevicesList(false);
+
+        // Power on or connect the device to discover
+
+        // Wait for device detection
+        Thread.Sleep(2000); // Adjust the wait time as needed
+
+        // Get updated device list
+        List<ECCONetApi.ECCONetDevice> updatedDevices = api.GetOnlineDevicesList(false);
+
+        // Check if the device was discovered
+        bool deviceDiscovered = updatedDevices.Any(d => !initialDevices.Contains(d));
+
+        if (deviceDiscovered)
         {
-            // Initialize the ECCONet API
-            canInterface = new ECCONetApi();
-
-            // Subscribe to the connection status changed event
-            canInterface.connectionStatusChangedDelegate += ConnectionStatusChanged;
-
-            // Subscribe to the online device list changed event
-            canInterface.onlineDeviceListChangedDelegate += OnlineDeviceListChanged;
-
-            // Start the process manager (for monitoring connections and online devices)
-            canInterface.StartProcessManager();
-
-            Console.WriteLine("Monitoring USB-CAN device connection status...");
-
-            // Wait for the user to end the program
-            Console.ReadLine();
+            Console.WriteLine("Device discovered successfully!");
         }
-
-        private static void ConnectionStatusChanged(bool isConnected)
+        else
         {
-            Console.WriteLine($"USB-CAN Connection Status: {(isConnected ? "Connected" : "Disconnected")}");
-        }
-
-        private static void OnlineDeviceListChanged(List<ECCONetApi.ECCONetDevice> list)
-        {
-            Console.WriteLine("\nOnline Devices:");
-            if (list.Count > 0)
-            {
-                foreach (var device in list)
-                {
-                    Console.WriteLine($"- {device.modelName} (Address: {device.address})");
-                }
-            }
-            else
-            {
-                Console.WriteLine("- No online devices found.");
-            }
+            Console.WriteLine("Device not discovered.");
         }
     }
+
+    private static void OnlineDeviceListChangedHandler(List<ECCONetApi.ECCONetDevice> list)
+    {
+        // Handle device list changes (optional)
+    }
+    // Event handler for device online status changes
+    private static void DeviceOnlineStatusEventHandler(ECCONetApi.ECCONetDevice device, ECCONetApi.DeviceOnlineEvent deviceEvent)
+    {
+    if (deviceEvent == ECCONetApi.DeviceOnlineEvent.JustProvidedProductInfo && device.address == 90)
+        {
+        // Print device information to the terminal
+        Console.WriteLine("Device Information:");
+        Console.WriteLine("Model Name: " + device.modelName);
+        Console.WriteLine("Manufacturer: " + device.manufacturerName);
+        Console.WriteLine("Hardware Revision: " + device.hardwareRevision);
+        Console.WriteLine("App Firmware Revision: " + device.appFirmwareRevision);
+        Console.WriteLine("Bootloader Firmware Revision: " + device.bootloaderFirmwareRevision);
+        // ... (Print other device information as needed)
+        }   
+}
 }
